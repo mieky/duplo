@@ -6,19 +6,24 @@ function isJpeg(filename) {
     return _.contains(['.jpg', '.jpeg'], path.extname(filename).toLowerCase());
 }
 
-function mapByFilename(path, filter, callback) {
-    console.log("Scanning " + path);
+function mapByFilename(rootPath, filter, callback) {
+    console.log("Scanning " + rootPath + "...");
 
     var files = {};
-    var walker = walk.walk(path, { followLinks: false });
+    var walker = walk.walk(rootPath, { followLinks: false });
 
-    walker.on('file', function(path, stat, next) {
+    walker.on('directory', function(root, stat, next) {
+        console.log("  ", stat.name + path.sep);
+        next();
+    });
+
+    walker.on('file', function(rootPath, stat, next) {
         var filename = stat.name;
         if (!filter(filename)) {
             return next();
         }
 
-        var filePath = path + '/' + stat.name;
+        var filePath = rootPath + '/' + stat.name;
         if (files[filename]) {
             files[filename].push(filePath);
         } else {
@@ -28,6 +33,7 @@ function mapByFilename(path, filter, callback) {
     });
 
     walker.on('end', function() {
+        console.log("Scanning done.");
         callback(null, files);
     });
 };
