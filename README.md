@@ -7,7 +7,7 @@ image library de-duper.
 
 To be able to import images from many sources and still contain them easily in the same directory, even if there are occasional name collisions.
 
-Initially only searches duplicates where filenames collide.
+Currently only searches duplicates where filenames collide.
 
 Method:
 
@@ -15,6 +15,9 @@ Method:
     - for colliding filenames, find out if they are the duplicates:
         - if duplicate: remove all but one
         - not duplicate: rename file(s) to avoid collisions
+
+Nothing is altered, only actions suggested.
+
 
 # Example
 
@@ -57,9 +60,7 @@ Sample run:
     test/import-1/img2.jpg -> test/import-1/img2-99d1.jpg
 
 
-To summarize:
-
-    Dupes are detected only if they share their filename.
+To summarize: *Dupes are detected only if they share their filename.*
 
 
 # Todo
