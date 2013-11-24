@@ -1,28 +1,24 @@
 #!/usr/bin/env node
-var _    = require('underscore');
+var _       = require('underscore');
+var md5     = require('MD5');
 var scanner = require('./scanner');
+var duper   = require('./duper');
+var fs      = require('fs');
 
-var root = process.argv[2] || './';
+var startPath = process.argv[2] || './';
 
-function duplicatesByName(filemap) {
-    return _.chain(filemap)
-        .pairs()
-        .filter(function(v) {
-            return v[1].length > 1;
-        })
-        .object()
-        .value();
-}
-
-function isIdentical(file1, file2) {
-
-}
-
-scanner.mapImagesByFilename(root, function(err, files) {
-    var duplicates = duplicatesByName(files);
+scanner.mapImagesByFilename(startPath, function(err, files) {
+    var duplicates = duper.duplicatesByName(files);
 
     console.log("Duplicates by filename:");
     _.keys(duplicates).map(function(v) {
-        console.log(v);
+        console.log(v, "(" + duplicates[v].length + " matches)");
+
+        duplicates[v].map(function(filename) {
+            fs.readFile(filename, function(err, buf) {
+                console.log("    ", filename, "md5=" + md5(buf));
+            });
+
+        });
     });
 });

@@ -18,7 +18,7 @@ function mapByFilename(path, filter, callback) {
             return next();
         }
 
-        var filePath = root + '/' + stat.name;
+        var filePath = path + '/' + stat.name;
         if (files[filename]) {
             files[filename].push(filePath);
         } else {
@@ -31,6 +31,8 @@ function mapByFilename(path, filter, callback) {
         callback(null, files);
     });
 };
+
+
 
 module.exports = {
     mapByFilename: mapByFilename,
