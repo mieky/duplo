@@ -1,0 +1,19 @@
+{
+  "name": "duplo",
+  "version": "0.0.1",
+  "description": "image library de-duper",
+  "main": "duplo.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "walk": "~2.2.1",
+    "underscore": "~1.5.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Mike Arvela <mike@arvela.net>",
+  "license": "BSD-2-Clause"
+}
