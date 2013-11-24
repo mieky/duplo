@@ -32,11 +32,8 @@ function mapByFilename(path, filter, callback) {
     });
 };
 
-
-
 module.exports = {
-    mapByFilename: mapByFilename,
-    mapImagesByFilename: function(root, callback) {
+    imagesByFilename: function(root, callback) {
         return mapByFilename(root, isJpeg, callback);
     }
 }
