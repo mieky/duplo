@@ -1,27 +1,28 @@
 #!/usr/bin/env node
-var walk = require('walk');
-var fs = require('fs');
-var _ = require('underscore');
+var _    = require('underscore');
+var scanner = require('./scanner');
 
-console.log("duplo");
+var root = process.argv[2] || './';
 
-var files = {};
+function duplicatesByName(filemap) {
+    return _.chain(filemap)
+        .pairs()
+        .filter(function(v) {
+            return v[1].length > 1;
+        })
+        .object()
+        .value();
+}
 
-var walker = walk.walk('./', { followLinks: false });
+function isIdentical(file1, file2) {
 
-walker.on('file', function(root, stat, next) {
-    var filename = stat.name;
-    var path = root + '/' + stat.name;
+}
 
-    if (files[filename]) {
-        files[filename].push(path);
-    } else {
-        files[filename] = [path];
-    }
+scanner.mapImagesByFilename(root, function(err, files) {
+    var duplicates = duplicatesByName(files);
 
-    next();
-});
-
-walker.on('end', function() {
-    console.log(files);
+    console.log("Duplicates by filename:");
+    _.keys(duplicates).map(function(v) {
+        console.log(v);
+    });
 });
