@@ -67,3 +67,8 @@ To summarize: *Dupes are detected only if they share their filename.*
 
 - use perceptual hashing / hamming distance for detecting dupes:
     https://github.com/aaronm67/node-phash
+
+# License
+
+MIT
+
