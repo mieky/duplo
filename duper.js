@@ -44,8 +44,15 @@ function groupByMD5(fileMap) {
             console.log(filename, "(" + fileMap[filename].length + " matches)");
 
             return fileMap[filename].map(function(filename) {
-                var buf = fs.readFileSync(filename);
-                var md5sum = md5(buf);
+                var buf = null;
+                var md5sum = null;
+
+                try {
+                    buf = fs.readFileSync(filename);
+                    md5sum = md5(buf);
+                } catch (e) {
+                    console.error("Error calculating md5 sum:", e);
+                }
 
                 console.log("  ", filename, "md5=" + md5sum)
                 return {
